@@ -5,11 +5,24 @@
 //      not within 5 seconds after a previous upvote
 
 function up(karma) {
-  // TODO
+  let karmaLeft = karma;
+  let lastVoteMillis = 0;
+  let interval = 0;
+
+  return function(upvote){
+    nowMillis = Date.now();
+    if( nowMillis - lastVoteMillis > 5000)
+      return 'you are upvoting too early';
+    if(karmaLeft < 0)
+      return 'not enough karma';
+    lastVoteMillis = nowMillis;
+    karmaLeft = karmaLeft - upvote;
+    return 'upvote: '+ upvote + ' ,karma left: '+karmaLeft;
+  }
 }
 
 let voter1 = up(100);
-voter1(90); // upvote: 90, karma left: 10
+console.log(voter1(90); // upvote: 90, karma left: 10
 voter1(15); // you are upvoting too quickly
 // call after 5 sec
 voter1(15); // not eough karma: 10
