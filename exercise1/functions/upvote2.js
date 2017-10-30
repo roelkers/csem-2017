@@ -8,11 +8,33 @@
 // their karma with a recharge(number) method
 
 function up(karma) {
-  // TODO
+  let karmaLeft = karma;
+  let lastVoteMillis = 0;
+
+  return {
+    vote: function(upvote){
+      nowMillis = Date.now();
+      if( nowMillis - lastVoteMillis < 5000)
+        return 'you are upvoting too early';
+      if(karmaLeft < 0)
+        return 'not enough karma';
+      lastVoteMillis = nowMillis;
+      karmaLeft = karmaLeft - upvote;
+      return 'upvote: '+ upvote + ' ,karma left: '+karmaLeft;
+    },
+    recharge: function(number){
+      if(number < 0)
+       return 'can only recharge by a positive amount';
+      karmaLeft = karmaLeft + number;
+      return number + 'recharged.Total karma now:' + karmaLeft;
+    }
+  }
 }
 
+
+
 let voter1 = up(100);
-voter1.vote(90); // upvote: 90, karma left: 10
-voter1.recharge(20); // 20 recharged. Total karma now: 30
+console.log(voter1.vote(90)); // upvote: 90, karma left: 10
+console.log(voter1.recharge(20)); // 20 recharged. Total karma now: 30
 // call after 5 sec
-voter1.vote(15); // upvote: 15, karma left: 15
+console.log(voter1.vote(15)); // upvote: 15, karma left: 15
