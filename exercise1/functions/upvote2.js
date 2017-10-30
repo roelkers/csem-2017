@@ -26,7 +26,7 @@ function up(karma) {
       if(number < 0)
        return 'can only recharge by a positive amount';
       karmaLeft = karmaLeft + number;
-      return number + 'recharged.Total karma now:' + karmaLeft;
+      return number + ' recharged.Total karma now: ' + karmaLeft;
     }
   }
 }
