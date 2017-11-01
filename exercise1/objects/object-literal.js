@@ -1,4 +1,4 @@
-// Object-literal style object creation
+// Object constructor style object creation
 
 function Cat(){
   this.meow = 'meowww';
