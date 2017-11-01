@@ -51,7 +51,9 @@ console.log(flatWordMap);
 // Use Array.reduce() to produce this final result:
 // { Hello: 4, world: 3, foo: 11, bar: 5 }
 let weightedWordCount = flatWordMap.reduce((prev, curr)=>{
-  prev[curr[1]] = prev[curr[1]] + curr[0];
+  if(!prev.hasOwnProperty(curr[0]))
+    prev[curr[0]] = 0;
+  prev[curr[0]] = prev[curr[0]] + curr[1];
   return prev;
 },{}); // TODO
 
