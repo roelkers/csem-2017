@@ -1,19 +1,26 @@
 // Object-literal style object creation
 
-var cat = {
-  meow: 'meowww',
-  speak: function () {
-    return this.meow;
-  },
-};
+function Cat(){
+  this.meow = 'meowww';
+}
 
-var loudCat = Object.create(cat);
-loudCat.loud = true;
-loudCat.shout = function () {
+Cat.prototype.speak = function(){
+  return this.meow;
+}
+
+function loudCat(loud){
+  Cat.call(this);
+  this.loud = loud;
+}
+
+loudCat.prototype = Object.create(Cat.prototype);
+loudCat.prototype.constructor = loudCat;
+
+loudCat.prototype.shout = function(){
   return this.meow.toUpperCase() + '!!';
-};
+}
 
-loudCat.speak = function () {
+loudCat.prototype.speak = function () {
   if (this.loud) {
     return this.shout();
   } else {
@@ -21,6 +28,8 @@ loudCat.speak = function () {
   }
 };
 
-console.log(loudCat.speak());
-loudCat.loud = false;
-console.log(loudCat.speak());
+myLoudCat = new loudCat(true);
+
+console.log(myLoudCat.speak());
+myLoudCat.loud = false;
+console.log(myLoudCat.speak());
