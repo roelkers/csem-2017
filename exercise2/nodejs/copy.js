@@ -5,9 +5,12 @@ const fs = require('fs');
 let f = process.argv[2];
 
 // TODO: Create a readable stream from file f
+let fileToRead = fs.createReadStream(f);
 
 // TODO: Create a writable stream that creates a
 // new file with the original file path f
 // plus the ending '-copy'
-
+let newF = `${f}-copy`;
+let fileToWrite = fs.createWriteStream(newF);
 // TODO: Copy the content from f to f-copy
+fileToRead.pipe(fileToWrite);
