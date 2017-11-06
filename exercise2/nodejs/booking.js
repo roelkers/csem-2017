@@ -9,7 +9,7 @@ function performBooking(newBooking) {
 
 // TODO: Attach an event handler (callback)
 // that listens for 'booking' events.
-
+em.on("booking",(input)=>performBooking(input));
 
 // standard input and output streams also
 // use events
@@ -19,11 +19,11 @@ process.stdin.on('readable', () => {
     let tInput = input.toString().trim();
 
     if (tInput === 'show') {
-      console.log('Bookings: ', bookings);
+      console.log('Bookings: [',bookings.join(','),']');
     } else if (tInput === 'exit') {
       process.exit(0);
     } else {
-      // TODO: emit a new event
+      em.emit('booking',input);
     }
   }
 });
