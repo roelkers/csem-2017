@@ -9,7 +9,8 @@ let server = http.createServer((req, res) => {
   let method = req.method;
   console.log(`${method} ${url}`);
   if (method === 'GET' && url === '/foo') {
-    // TODO: implement missing code
+    res.statusCode = 200;
+    fs.createReadStream(PATH).pipe(res);
   } else {
     res.statusCode = 404;
     res.write(`<h1>${method} ${url} not implemented.</h1>`);
