@@ -5,11 +5,15 @@ process.stdin.on("data", function (chunk) {
     input += chunk;
 });
 process.stdin.on("end", function () {
-    // now we can read/parse input
-    console.log(isPangram(input));
+   var char_offset = 65;
+   var char = null;
+   var inputUpper = input.toUpperCase().split('');
+   for(var i=0; i<26; i++){
+       char = String.fromCharCode(i+char_offset);
+       if(inputUpper.indexOf(char)===-1){
+           console.log("not pangram");
+           return;
+       }
+   }
+   console.log("pangram");
 });
-
-function isPangram(inputString) {
-    // TODO
-    
-}
