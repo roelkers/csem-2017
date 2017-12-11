@@ -8,6 +8,7 @@ const dbSetup = require('./db-setup');
 
 // Application config
 const LOCAL_APP_PORT = 8080;
+
 const PUBLIC_APP_PORT = process.env.PUBLIC_APP_PORT || LOCAL_APP_PORT;
 global.dbType = process.env.DB_TYPE;
 
@@ -24,14 +25,18 @@ app.use(bodyParser.json()); // for parsing application/json
 
 // Import routes
 //const index = require('./routes/index');
-//const owner = require('./routes/owner');
-//const shop = require('./routes/shop');
-//const product = require('./routes/product');
+const owner = require('./routes/owner');
+const shop = require('./routes/shop');
+const product = require('./routes/product');
 
 // Set up express routes
-//app.use('/owner', owner);
-//app.use('/shop', shop);
-//app.use('/product', product);
+app.use('/index',(req,res,next) => {
+  res.send("This is sent to the browser...!");
+})
+
+app.use('/owner', owner);
+app.use('/shop', shop);
+app.use('/product', product);
 
 app.listen(LOCAL_APP_PORT, () => {
   console.log('App started ...');

@@ -4,7 +4,7 @@ module.exports = (dbType) => {
     if (dbType && dbType.toLowerCase() == 'postgres') {
         const pg = require('pg');
         const Sequelize = require('sequelize');
-        
+
         // DB config
         const PG_HOST = process.env.PG_HOST;
         const PG_PORT = process.env.PG_PORT;
@@ -22,9 +22,27 @@ module.exports = (dbType) => {
             dialect: 'postgres',
             define: {
                 underscored: true
-            }
+            },
+            logging: false
+        })
+
+        global.db
+        .authenticate()
+        .then(() => {
+          console.log('Connection has been established successfully.');
+          // Set up associations
+          const owners = require('./models/owners');
+          const products = require('./models/products');
+          const shops = require('./models/shops');
+
+          //One to One relation between owner and shop
+          owners.hasOne(shops);
+          //One to many relation between shop and products
+          shops.hasMany(products);
+        })
+        .catch(err => {
+          console.error('Unable to connect to the database:', err);
         });
-     
     } else if (dbType && dbType.toLowerCase() == 'mongodb') {
         const mongoose = require('mongoose');
 
