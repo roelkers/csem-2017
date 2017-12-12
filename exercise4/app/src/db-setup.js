@@ -31,9 +31,9 @@ module.exports = (dbType) => {
         .then(() => {
           console.log('Connection has been established successfully.');
           // Set up associations
-          const owners = require('./models/owners');
-          const products = require('./models/products');
-          const shops = require('./models/shops');
+          const owners = require('./postgres/models/owners');
+          const products = require('./postgres/models/products');
+          const shops = require('./postgres/models/shops');
 
           //One to One relation between owner and shop
           owners.hasOne(shops);

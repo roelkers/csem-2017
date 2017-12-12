@@ -23,20 +23,32 @@ dbSetup(global.dbType);
 // Express middleware
 app.use(bodyParser.json()); // for parsing application/json
 
-// Import routes
-//const index = require('./routes/index');
-const owner = require('./routes/owner');
-const shop = require('./routes/shop');
-const product = require('./routes/product');
+if(global.dbType=='postgres'){
+  // Import routes
+  const owner = require('./postgres/routes/owner');
+  const shop = require('./postgres/routes/shop');
+  const product = require('./postgres/routes/product');
 
-// Set up express routes
-app.use('/index',(req,res,next) => {
-  res.send("This is sent to the browser...!");
-})
+  // Set up express routes
+  app.use('/owner', owner);
+  app.use('/shop', shop);
+  app.use('/product', product);
+}
+else if(global.dbType=='mongodb'){
+  const owner = require('./mongo/routes/owner');
+  //const shop = require('./mongo/routes/shop');
+  //const product = require('./mongo/routes/product');
 
-app.use('/owner', owner);
-app.use('/shop', shop);
-app.use('/product', product);
+  // Set up express routes
+  app.use('/owner', owner);
+  //app.use('/shop', shop);
+  //app.use('/product', product);
+}
+else
+{
+  console.error(`Database ${dbType} is unknown. Please select either postgres or mongodb.`);
+  process.exit(1);
+}
 
 app.listen(LOCAL_APP_PORT, () => {
   console.log('App started ...');
