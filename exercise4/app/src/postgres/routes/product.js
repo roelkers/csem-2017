@@ -5,12 +5,12 @@ const products = require('../models/products');
 
 
 const createProduct = (req,res,next) => {
-  console.log(`${req.body.name},${req.body.price},${req.body.shop_id}`);
-  products.findOrCreate({where:
+  //console.log(`${req.body.name},${req.body.price},${req.body.shop_id}`);
+  products.create(
     {name: req.body.name,
      price:req.body.price,
      shop_id: req.body.shop_id
-    }})
+    })
     .then((data) => {
     res.status(200).send(data);
   })
@@ -31,7 +31,7 @@ const getAllProducts = (req,res,next) => {
 
   products.findAll()
     .then((data) => {    
-    res.status(200).send(data)
+    res.status(200).send({"data" : data})
   })
   .catch(error => console.log(error))   
 }

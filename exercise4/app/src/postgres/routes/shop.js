@@ -5,8 +5,7 @@ const router = express.Router();
 const shops = require('../models/shops')
 
 const createShop = (req,res,next) => {
-  console.log(req.body.name);
-  shops.findOrCreate({where: {name: req.body.name}}).then((data) => {
+  shops.findOrCreate({where: {name: req.body.name, owner_id: req.body.owner_id}}).then((data) => {
     res.status(200).send(data[0]);
   })
   .catch(error => console.log(error));
