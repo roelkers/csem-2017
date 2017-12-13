@@ -1,40 +1,35 @@
 'use strict'
 const express = require('express');
 const router = express.Router();
-const products = require('../models/products');
-
+const Product = require('../models/productModel');
 
 const createProduct = (req,res,next) => {
-  console.log(`${req.body.name},${req.body.price},${req.body.shop_id}`);
-  products.findOrCreate({where:
-    {name: req.body.name,
-     price:req.body.price,
-     shop_id: req.body.shop_id
-    }})
-    .then((data) => {
+
+  Product.create({name: req.body.name, shop_id: req.body.shop_id, price: req.body.price})
+  .then((data) => {
     res.status(200).send(data);
   })
-  .catch(error => console.log(error));
+  .catch(error => console.log(error));   
 }
 
 const getProductById = (req,res,next) => {
 
-  products.findById(req.params.id)
-    .then((data) => {    
+Product.findById(req.params.id)
+  .then((data) => {
     res.status(200).send(data);
   })
-  .catch(error => console.log(error))   
+  .catch(error => console.log(error));    
 }
-
 
 const getAllProducts = (req,res,next) => {
 
-  products.findAll()
-    .then((data) => {    
-    res.status(200).send(data)
+  Product.find({})
+  .then((data) => {
+      res.status(200).send({"data" : data})
   })
-  .catch(error => console.log(error))   
+  .catch(error => console.log(error));    
 }
+
 
 router.get('/',getAllProducts)
 router.post('/',createProduct)

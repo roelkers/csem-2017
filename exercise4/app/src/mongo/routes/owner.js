@@ -8,31 +8,33 @@ mongoose.Promise = global.Promise;
 
 const createOwner = (req,res,next) => {
 
-  Owner.create({name : req.body.name},function(err,data){
-    if (err) return console.error(err);
-    console.log(data)
+  Owner.create({name : req.body.name})
+  .then((data) => {
     res.status(200).send(data);
-  });
+  })
+  .catch(error => console.log(error));  
 }
 
 const getOwnerById = (req,res,next) => {
 
-  Owner.findById(req.params.id,(err,data)=>{
-    if(err) throw err;
+  Owner.findById(req.params.id)
+  .then((data)=>{
     res.status(200).send(data)
-  });   
+  })
+  .catch(error => console.log(error));  
 }
 
 const getAllOwners = (req,res,next) => {
 
-  Owner.find({},(err,data)=>{
-    if(err) throw err;
+  Owner.find({})
+  .then((data)=>{
     res.status(200).send(data)
-  });    
+  })
+  .catch(error => console.log(error));  
 }
 
-router.get('/',getAllOwners)
-router.post('/',createOwner)
+router.get('/',getAllOwners);
+router.post('/',createOwner);
 router.get('/:id',getOwnerById);
 
 module.exports = router;

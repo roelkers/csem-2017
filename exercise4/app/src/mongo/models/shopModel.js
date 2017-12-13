@@ -3,8 +3,10 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-global.db.shopSchema = new Schema({
+const shopSchema = new Schema({
+  owner_id: String,
   name: String
 })
 
-module.exports = global.db.model('shop',shopSchema);
+global.db.Shop = global.db.model('shop',shopSchema);
+module.exports = global.db.Shop

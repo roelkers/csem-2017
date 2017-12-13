@@ -3,9 +3,11 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-global.db.priceSchema = new Schema({
+const productSchema = new Schema({
+  shop_id: String,
   name: String,
   price:Number
 })
 
-module.exports = global.db.model('product',productSchema);
+global.db.Shop = global.db.model('product',productSchema);
+module.exports = global.db.Shop;

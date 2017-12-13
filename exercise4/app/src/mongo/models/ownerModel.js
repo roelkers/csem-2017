@@ -4,7 +4,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ownerSchema = new Schema({
-  name: String
+  name: String,
 })
 
-module.exports = global.db.model('owner',ownerSchema);
+global.db.Owner = global.db.model('owner',ownerSchema);
+module.exports = global.db.Owner;

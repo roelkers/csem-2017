@@ -36,13 +36,13 @@ if(global.dbType=='postgres'){
 }
 else if(global.dbType=='mongodb'){
   const owner = require('./mongo/routes/owner');
-  //const shop = require('./mongo/routes/shop');
-  //const product = require('./mongo/routes/product');
+  const shop = require('./mongo/routes/shop');
+  const product = require('./mongo/routes/product');
 
   // Set up express routes
   app.use('/owner', owner);
-  //app.use('/shop', shop);
-  //app.use('/product', product);
+  app.use('/shop', shop);
+  app.use('/product', product);
 }
 else
 {
