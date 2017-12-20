@@ -1,0 +1,12 @@
+<div *ngIf="owner">
+
+  <h2>{{ owner.name | uppercase }} Details</h2>
+  <div><span>id: </span>{{owner._id}}</div>
+  <div>
+    <label>name:
+      <input [(ngModel)]="owner.name" placeholder="name"/>
+    </label>
+    <button (click)="save()">save</button>
+  </div>
+
+</div>

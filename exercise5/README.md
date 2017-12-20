@@ -1,36 +1,57 @@
 # Exercise 5
 
-Submission deadline: 20.12.2018, end of day
+## About the application
 
-## Self-study tutorials
-
-Learn basic TypeScript syntax https://www.typescriptlang.org/docs/home.html
-
-Learn how to use Angular by doing the "Tour of Heroes" tutorial: https://angular.io/tutorial
-
-## Create an Angular app
-
-Your task is to use Angular to implement parts of the shop app front-end which supports the following main features:
+The task was to use Angular to connect to the shop backend which
+persists different shop owners. It has the main features:  
 
 1. Showing a Master/Detail view of shop owners
 2. Updating owner names
 
-For feature 2, you need to add an update method to your back-end application (for one of the two databases).
+## Guidelines for starting up the application
 
-The front-end connects to the back-end which we built in the last exercise. Updates must be persisted in the database.
+The backend is dockerized, so it can be started from the main folder:
 
-### Getting started
+`cd exercise5`
 
-- To get started, you might do the "Tour of Heroes" tutorial and simply exchange "hero" with "owner".
+`docker-compose up --build`
 
-- In part 8 of the tutorial (HTTP), instead of using an in-memory database, connect your http client with the database-backed NodeJS/Express application from our previous exercise which you can provision with Docker.
+This will start the backend server running mongodb and the node.js application.
 
-- Fill the database with "owners" by firing POST requests with Postman.
+Since it was not required in the scope of the app to initialize the Database we have to first create a few shop owners.
 
-### Not within the scope of this exercise
+Open Postman App, and shoot a few POST-requsts to the following URL:
 
-The following is out of scope:
+`POST localhost:4000/owner` with JSON body of:
 
-- You only need to connect it to either the Postgres-based OR the MongoDB-based back-end (it is not required to support both!).
-- You do not need to implement the Shop and Product features.
-- You only need to implement a front-end which connects to the `GET /owner/:id`, `GET /owner`, and `PUT /owner` API operations. Other CRUD operations (such as create and delete) are not required for this exercise.
+`{
+	"name": "Jack"
+}`
+
+of course with different names!
+
+Verify they have been creating by shooting GET-Request at
+
+`GET localhost:4000/owner`
+
+Great!
+
+Now for starting the angular frontend, open a new terminal and access the angular folder:
+
+`cd exercise5/angular`
+
+Start angular local server with angular-CLI:
+
+`ng serve`
+
+(installing dependencies might be required beforehand)
+
+Access
+
+`localhost:4200`
+
+in a web browser of your choice (If this doesnt work check the port number of angular app in the terminal).
+
+Now the created shop owners are displayed. Their names can be modified in the detail view.
+
+Refresh the browser to make sure the updates are persisted.

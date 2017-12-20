@@ -1,0 +1,10 @@
+<h2>Owners</h2>
+<ul class="shop-owners">
+  <li *ngFor="let owner of owners"
+    [class.selected]="owner === selectedOwner"
+    (click)="onSelect(owner)">
+    <span class="badge">{{owner._id}}</span> {{owner.name}}
+  </li>
+</ul>
+
+<app-owner-detail [owner]="selectedOwner"></app-owner-detail>
