@@ -18,6 +18,11 @@ The backend is dockerized, so it can be started from the main folder:
 
 This will start the backend server running mongodb and the node.js application.
 
+NOTE:
+
+Sometimes MongoDB seems to start up after the app tries to connect.
+In this case rerun the docker command until it says it has connected successfully in the terminal.
+
 Since it was not required in the scope of the app to initialize the Database we have to first create a few shop owners.
 
 Open Postman App, and shoot a few POST-requsts to the following URL:
