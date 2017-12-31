@@ -1,0 +1,26 @@
+{
+  "name": "csem-exercises-modules",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "b": "echo \"Error: browserify command not implemented\" && exit 1",
+    "w": "echo \"Error: webpack command not implemented\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.tubit.tu-berlin.de:klems/csem-exercises.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jquery": "^3.1.1"
+  },
+  "devDependencies": {
+    "browserify": "^13.1.1",
+    "requirejs": "^2.3.2",
+    "webpack": "^1.13.3"
+  }
+}
