@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "b": "echo \"Error: browserify command not implemented\" && exit 1",
-    "w": "echo \"Error: webpack command not implemented\" && exit 1"
+    "b": "browserify browserify/main.js -o browserify/bundle.js",
+    "w": "webpack webpack/main.js webpack/bundle.js"
   },
   "repository": {
     "type": "git",
