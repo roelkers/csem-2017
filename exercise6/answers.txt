@@ -1,3 +1,12 @@
 TDD and BDD Testing:
-1.
-4. 
+1. The method `assert.equal`, when used for arrays, compares the two object references.
+   Since the arrays are seperate objects,they have different references and the method returns "false".
+   Therefore more suitable is the `assert.deepEqual` method which actually compares each entry in both arrays
+   and their position.
+4. One solution would be to rerun the flaky tests a number of times. If it passes the test at least once, we declare
+   that the test case has passed.
+   With mocha this can be done by inserting 'this.retries(numberOfTimes);' at the start of the flaky test.
+   This will retry the test a set number of times.
+
+   This should work however it only hides the flaky test. For a database call it might also work to increase the
+   timeout length, if it is a network problem or other related issue. For random errors the above method can be applied.

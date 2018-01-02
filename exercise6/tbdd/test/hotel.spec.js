@@ -1,6 +1,7 @@
 const Hotel = require('../app/hotel');
 
 let hotel;
+let retries = 3
 
 describe('Hotel', () => {
     beforeEach(() => {
@@ -8,8 +9,13 @@ describe('Hotel', () => {
     });
 
     describe('#save()', () => {
-        it('should save without error', done => {
-            // TODO
+        it('should save without error', function(done) {
+            this.retries(retries);
+            hotel.save()
+            .then(()=>{
+              done();
+            }
+            )
         });
     });
 });

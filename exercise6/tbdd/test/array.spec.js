@@ -1,5 +1,5 @@
 const chai = require('chai');
-const assert = chai.assert;
+const expect = chai.expect;
 
 let array;
 
@@ -11,14 +11,14 @@ describe('Array Methods', () => {
     describe('#reduce()', () => {
         it('should return sum of array items', () => {
             let result = array.reduce((a, b) => a + b, 0);
-            assert.equal(result, 14);
+            expect(result).to.equal(14);
         });
     });
 
     describe('#map()', () => {
         it('should return an array with square-rooted values', () => {
             let result = array.map(Math.sqrt);
-            assert.equal(result, [0, 1, 2, 3]);
+            expect(result).to.deep.equal([0, 1, 2, 3]);
         });
     });
 });
