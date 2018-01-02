@@ -19,15 +19,19 @@
   }
 }(typeof self !== 'undefined' ? self : this, function () {
 
-    // Just return a value to define the module export.
-    // This example returns an object, but the module
-    // can return a function as the exported value.
-    return function rating(stars) {
-        if (stars > 3) {
-            return "great";
-        } else {
-            return "nice";
-        }
-    }
+
+  var lib = {};
+
+  function rating(stars) {
+      if (stars > 3) {
+          return "great";
+      } else {
+          return "nice";
+      }
+  }
+
+  lib.rating = rating;
+
+  return lib;
 
 }));
