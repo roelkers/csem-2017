@@ -1,0 +1,24 @@
+Question 1 - AWS EC2
+
+Answer:
+
+
+Question 2 - AWS EBS
+
+Answer:
+
+
+Question 3 - AWS S3
+
+Answer:
+
+
+Question 4 - AWS SES
+
+Answer:
+
+
+Question 5 - AWS EMR
+
+Answer:
+
