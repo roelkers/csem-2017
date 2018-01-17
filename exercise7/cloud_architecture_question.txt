@@ -1,0 +1,50 @@
+
+The following architecture has been designed for an AWS solution.
+
+a)
+Given this information, I would connect the private and public cloud using
+a Amazon Virtual Private Cloud (VPC) so that AWS ressources operate as if they
+were part of an existing network. By also creating a Hardware VPN connection
+between a corporate data center and the VPC the connection is encrypted.
+This prevents unauthorized access. The public AWS cloud is by default protected
+from unauthorized access, the protection can be configured with the IAM technology
+or, if needed, multi-factor authentication.
+
+
+b)
+For a relational Database there are different options, but Amazon Aurora provides
+a cheap and performant solution that supports the MySQL and PostgreSQL dialects.
+The chosen key-value DB is Amazon DynamoDB because it fits very well into the eco-
+system and has really good performance in the AWS cloud.
+The relational User data could also be stored in a commercial DB such as Oracle MySQL
+or MicrosoftSQLServer if there exists already some legacy data.
+
+The data is backed up on Amazon Simple storage buckets, so no user or application
+data can get lost.
+
+c) For the communication between different applications AWS Simple Queue Service
+can be used which supports asynchronous messaging between applications or services.
+
+d) Applications with high availability and scalability requirements shall be inserted
+in AWS Auto Scaling Groups, which dynamically scales the number um EC2 instances
+that run the application server.
+
+The Web Tier, Load Balancer and App Tier shall be replicated across different
+regions to different datacenter to improve the availability. If one region is
+unavailable for some reason, other regions can jump in until the region is available
+again.
+
+e) To make sure the performance is optimized, a load balancer will distribute the user
+request across different regions and between different instances in an auto scaling
+group.
+Similarly another load balancer will distribute request from the web tier to different
+app servers in their auto scaling groups. For load distribution a round robin approach
+can be used for example.
+This ensures no server is overloaded and the and the work is divided evenly
+Also AWS ElastiCache can be inserted between the database and app tier. By doing this repeated read requests to the DB can
+be cached and the response time decreased.
+To speed up the time of delivery of static content, which will determine how fast
+a web site loads, Amazon CloudFront can be used. This will cache static content in
+different edge locations across regions and will deliver HTML-, CSS- and JavaScript Files
+from the edge that has the lowest latency to the user. If it is not cached yet,
+it will simply load the content from an AWS S3 Bucket.
