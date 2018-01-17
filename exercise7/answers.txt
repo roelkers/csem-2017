@@ -1,24 +1,65 @@
 Question 1 - AWS EC2
 
 Answer:
+Port Scans of Amazon EC2 instances are generally ineffective because, by default,
+all inbound ports on EC2 instances are closed and have to be opened by the customer.
+By using security groups the customer can further mitigate the thread of port scanning [1].
+Each security group has a set of rules that specify that allow traffic from associated
+instances or from external sources [2].
+If a customer allows traffic from any source to a specific port, that port will be vulnerable
+to a port scan and the user has to use appropriate security measures to protect listening
+services [1].
 
+references:
+[1] https://www.utdallas.edu/~muratk/courses/cloud11f_files/AWS_Security_Whitepaper.pdf
+[2] https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html
 
 Question 2 - AWS EBS
 
 Answer:
+- Amazon EBS Encryption
+- Ability to create Snapshots of an EBS volume and write  a copy of the data to
+  to Amazon S3 where it is stored redudantly in multiple Availability Zones.
 
+reference: [3] https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumes.html
 
 Question 3 - AWS S3
 
 Answer:
+Bucket access control is configured using Amazon S3 subressources through the API.
+There are a number of subressources(location, access control list, cors ,etc)
+that can be configured [4].
+In particular, bucket policies give users the right to access a bucket for reading/writing.
+Only the bucket owner is allowed to associate a policy with a bucket. For controlling access
+, there are specific Amazon S3 operations, such as GetObject, GetObjectVersion, DeleteObject
+or DeleteBucket[5].
 
+references:
+[4] https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingBucket.html
+[5] https://docs.aws.amazon.com/AmazonS3/latest/dev/Introduction.html
 
 Question 4 - AWS SES
 
 Answer:
-
+Before sending Email with Amazon SES, it is necessary to verify that the email-
+adress or domain is actually owned with Amazon SES. For each region this must be
+done separately. To set up DKIM, there is a procedure for Amazon SES called Easy DKIM
+It involves using the Amazon SES console or API to generate TXT files and then adding
+the records in those files to the DNS settings. After receiving a confirmation
+email from AWS it is then possible to send Emails signed with a DKIM signature from
+any valid adress in the verified domain.
 
 Question 5 - AWS EMR
 
 Answer:
 
+The security settings of the cluster can be set using Identity and Access Management
+policies(IAM). IAM is a web service to create policies and attach them to principals,
+such as users and groups. This will allows and deny user permissions. By default,
+the cluster is visible to all IAM Users of that AWS account! If they have the proper policy permissions, they can also manage it.
+
+Also, on first boot, by default, Amazon Linux AMIs connect to package repositories to install security updates before other services start.
+
+references:
+[6] https://docs.aws.amazon.com/cli/latest/reference/emr/create-cluster.html
+[7] https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-access-iam.html
