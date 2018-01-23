@@ -1,0 +1,72 @@
+service: my-express-application
+
+plugins:
+  - serverless-dynamodb-local
+  - serverless-offline
+
+custom:
+  tableNameProduct: 'product-table-${self:provider.stage}'
+  tableNameShop: 'shop-table-${self:provider.stage}'
+  dynamodb:
+      start:
+        migrate: true
+        inMemory: false
+        #noStart: true
+provider:
+  name: aws
+  runtime: nodejs6.10
+  stage: dev
+  region: us-east-1
+  iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:Query
+          - dynamodb:Scan
+          - dynamodb:GetItem
+          - dynamodb:PutItem
+          - dynamodb:UpdateItem
+          - dynamodb:DeleteItem
+        Resource:
+          - { "Fn::GetAtt": ["ProductsDynamoDBTable", "Arn" ] }
+          - { "Fn::GetAtt": ["ShopsDynamoDBTable", "Arn" ] }
+  environment:
+      PRODUCTS_TABLE: ${self:custom.tableNameProduct}
+      SHOPS_TABLE: ${self:custom.tableNameShop}
+
+functions:
+  app:
+    handler: index.handler
+    events:
+      - http: ANY /
+      - http: 'ANY {proxy+}'
+
+resources:
+  Resources:
+    ProductsDynamoDBTable:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:custom.tableNameProduct}
+    ShopsDynamoDBTable:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:custom.tableNameShop}
