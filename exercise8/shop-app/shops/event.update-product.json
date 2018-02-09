@@ -1,0 +1,6 @@
+{
+  "pathParameters": {
+    "shop_id": "1"
+  },
+  "body": "{\"product_id\": \"5\", \"product_name\": \"Fire and Fury - Directors Cut\"}"
+}
